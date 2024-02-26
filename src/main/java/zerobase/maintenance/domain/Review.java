@@ -6,12 +6,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import zerobase.maintenance.type.Star;
 
 @Getter
 @Setter
@@ -19,18 +22,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "review")
 public class Review {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "maintenance_id")
-  private Long maintenanceId;
-
-  @Column(name = "star")
-  private String star;
-
-  @Column(name = "review")
+  @OneToOne
+  @JoinColumn(name = "maintenance_id")
+  private Maintenance maintenance;
+  private Star star;
   private String review;
 }

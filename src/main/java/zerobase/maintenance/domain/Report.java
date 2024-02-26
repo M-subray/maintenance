@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,18 +20,14 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "report")
 public class Report {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "maintenance_id")
-  private Long maintenanceId;
-
-  @Column(name = "image_path")
+  @OneToOne
+  @JoinColumn(name = "maintenance_id")
+  private Maintenance maintenance;
   private String imagePath;
-
-  @Column(name = "report_detail")
   private String reportDetail;
 }

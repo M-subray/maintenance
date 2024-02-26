@@ -11,6 +11,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import zerobase.maintenance.type.Roles;
 
 @Getter
 @Setter
@@ -18,27 +19,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "account")
 public class Account {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(name = "username")
+  @Column(unique = true)
   private String username;
-
-  @Column(name = "password")
   private String password;
-
-  @Column(name = "name")
   private String name;
-
-  @Column(name = "address")
   private String address;
-
-  @Column(name = "mobile")
   private String mobile;
-
-  @Column(name = "roles")
-  private String roles;
+  private Roles role;
 }
