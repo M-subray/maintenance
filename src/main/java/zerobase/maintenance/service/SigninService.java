@@ -1,9 +1,9 @@
 package zerobase.maintenance.service;
 
-import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import zerobase.maintenance.domain.Account;
 import zerobase.maintenance.exception.AccountException;
 import zerobase.maintenance.repository.AccountRepository;
@@ -16,7 +16,7 @@ public class SigninService {
   private final PasswordEncoder passwordEncoder;
   private final AccountRepository accountRepository;
 
-  @Transactional
+  @Transactional(readOnly = true)
   public Account signin(String username, String password) {
     Account savedAccount = accountRepository.findByUsername(username)
         .orElseThrow(() -> new AccountException(ErrorCode.USERNAME_NOT_FOUND));

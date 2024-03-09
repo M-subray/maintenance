@@ -4,11 +4,9 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import zerobase.maintenance.domain.Account;
 import zerobase.maintenance.dto.SigninDto;
 import zerobase.maintenance.security.TokenProvider;
 import zerobase.maintenance.service.SigninService;
@@ -22,11 +20,9 @@ public class SigninController {
 
   @PostMapping("/signin")
   public ResponseEntity<?> signin(@RequestBody @Valid SigninDto.Request signinDto) {
-
-    Account loginSuccessful =
-        signinService.signin(signinDto.getUsername(), signinDto.getPassword());
+    signinService.signin(signinDto.getUsername(), signinDto.getPassword());
     String token =
-        tokenProvider.generateToken(loginSuccessful.getUsername(), loginSuccessful.getRole());
+        tokenProvider.generateToken(signinDto.getUsername(), signinDto.getRole());
     return ResponseEntity.ok().body("로그인 성공\n" + token);
   }
 }

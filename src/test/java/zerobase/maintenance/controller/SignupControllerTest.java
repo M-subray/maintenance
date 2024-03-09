@@ -36,7 +36,6 @@ class SignupControllerTest {
         .address("testAddress")
         .mobile("010-1234-5678")
         .mail("test@mail.com")
-        .role("USER")
         .build();
 
     ObjectMapper objectMapper = new ObjectMapper();
@@ -45,7 +44,8 @@ class SignupControllerTest {
     // when
     mockMvc.perform(post("/signup")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(jsonContent))
+            .content(jsonContent)
+            .param("role", "ROLE_USER"))
         .andExpect(status().isOk());
   }
 
@@ -61,7 +61,6 @@ class SignupControllerTest {
         .address("testAddress")
         .mobile("010-1234-5678")
         .mail("test@mail.com")
-        .role("PARTNER_IN_OFFICE")
         .build();
 
     ObjectMapper objectMapper = new ObjectMapper();
@@ -70,7 +69,8 @@ class SignupControllerTest {
     // when
     mockMvc.perform(post("/signup/partner/office")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(jsonContent))
+            .content(jsonContent)
+            .param("role", "ROLE_PARTNER_IN_OFFICE"))
         .andExpect(status().isOk());
   }
 
@@ -86,7 +86,6 @@ class SignupControllerTest {
         .address("testAddress")
         .mobile("010-1234-5678")
         .mail("test@mail.com")
-        .role("PARTNER_ON_FIELD")
         .build();
 
     ObjectMapper objectMapper = new ObjectMapper();
@@ -95,7 +94,8 @@ class SignupControllerTest {
     // when
     mockMvc.perform(post("/signup/partner/office")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(jsonContent))
+            .content(jsonContent)
+            .param("role", "ROLE_PARTNER_ON_FIELD"))
         .andExpect(status().isOk());
   }
 }

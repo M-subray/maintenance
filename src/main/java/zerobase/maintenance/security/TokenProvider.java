@@ -7,6 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ import java.util.Date;
 
 
 @Component
+@Slf4j
 @RequiredArgsConstructor
 public class TokenProvider {
 
@@ -46,18 +48,20 @@ public class TokenProvider {
   public Authentication getAuthentication(String jwt) {
     UserDetails userDetails =
         this.authenticationService.loadUserByUsername(this.getUsername(jwt));
-    return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+    return new UsernamePasswordAuthenticationToken(userDetails
+        , "", userDetails.getAuthorities()
+    );
   }
 
   public String getUsername(String token) {
-    return this.parseClaims(token).getSubject();
+      return this.parseClaims(token).getSubject();
   }
 
   public boolean validateToken(String token) {
     if (!StringUtils.hasText(token)) return false;
 
     Claims claims = this.parseClaims(token);
-    return !claims.getExpiration().before(new Date());  // 토큰의 만료 시간이 현재 보다 이전인지
+    return !claims.getExpiration().before(new Date());
   }
 
   private Claims parseClaims(String token) {
