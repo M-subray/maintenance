@@ -16,7 +16,7 @@ import zerobase.maintenance.exception.MaintenanceException;
 import zerobase.maintenance.repository.AccountRepository;
 import zerobase.maintenance.repository.MaintenanceRepository;
 import zerobase.maintenance.type.ErrorCode;
-import zerobase.maintenance.utils.AuthenticationUtil;
+import zerobase.maintenance.utils.AuthenticationContext;
 import zerobase.maintenance.utils.SmsUtil;
 
 @Service
@@ -34,7 +34,7 @@ public class ConfirmService {
       ConfirmDto confirmDto) {
 
     Authentication handlerPartnerInOffice =
-        AuthenticationUtil.getAuthentication();
+        AuthenticationContext.getAuthentication();
 
     Maintenance maintenance =
         maintenanceRepository.findById(maintenanceId).orElseThrow(() ->

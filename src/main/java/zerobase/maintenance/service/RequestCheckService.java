@@ -9,7 +9,7 @@ import zerobase.maintenance.domain.Maintenance;
 import zerobase.maintenance.dto.RequestCheckForPartnerDto;
 import zerobase.maintenance.dto.RequestCheckForUserDto;
 import zerobase.maintenance.repository.MaintenanceRepository;
-import zerobase.maintenance.utils.AuthenticationUtil;
+import zerobase.maintenance.utils.AuthenticationContext;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +19,7 @@ public class RequestCheckService {
   @Transactional(readOnly = true)
   public Page<RequestCheckForUserDto> getAllMyMaintenanceRequest(Pageable pageable) {
     String username =
-        AuthenticationUtil.getAuthentication().getName();
+        AuthenticationContext.getAuthentication().getName();
 
     Page<Maintenance> maintenancePage =
         maintenanceRepository.findByAccount_Username(username, pageable);

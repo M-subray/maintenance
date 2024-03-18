@@ -5,7 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import zerobase.maintenance.exception.AccountException;
 import zerobase.maintenance.type.ErrorCode;
 
-public class AuthenticationUtil {
+public class AuthenticationContext {
 
   public static Authentication getAuthentication() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

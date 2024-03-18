@@ -8,10 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 import zerobase.maintenance.domain.Account;
 import zerobase.maintenance.domain.Maintenance;
 import zerobase.maintenance.dto.RequestDto;
+import zerobase.maintenance.exception.AccountException;
 import zerobase.maintenance.repository.AccountRepository;
 import zerobase.maintenance.repository.MaintenanceRepository;
+import zerobase.maintenance.type.ErrorCode;
 import zerobase.maintenance.type.Status;
-import zerobase.maintenance.utils.AuthenticationUtil;
+import zerobase.maintenance.utils.AuthenticationContext;
 
 @Service
 @RequiredArgsConstructor
@@ -22,13 +24,14 @@ public class MaintenanceRequestService {
   @Transactional
   public void maintenanceRequest(RequestDto request) {
     Authentication authentication =
-        AuthenticationUtil.getAuthentication();
+        AuthenticationContext.getAuthentication();
 
-    Optional<Account> byUsername =
-        accountRepository.findByUsername(authentication.getName());
+    Account getByUsername =
+        accountRepository.findByUsername(authentication.getName()).orElseThrow(()->
+            new AccountException(ErrorCode.USERNAME_NOT_FOUND));
 
     maintenanceRepository.save(Maintenance.builder()
-        .account(byUsername.get())
+        .account(getByUsername)
         .title(request.getTitle())
         .item(request.getItem())
         .purchaseDate(request.getPurchaseDate())

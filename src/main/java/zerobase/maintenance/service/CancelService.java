@@ -12,7 +12,7 @@ import zerobase.maintenance.repository.MaintenanceCancelRepository;
 import zerobase.maintenance.repository.MaintenanceRepository;
 import zerobase.maintenance.type.ErrorCode;
 import zerobase.maintenance.type.Status;
-import zerobase.maintenance.utils.AuthenticationUtil;
+import zerobase.maintenance.utils.AuthenticationContext;
 
 @Service
 @RequiredArgsConstructor
@@ -27,10 +27,10 @@ public class CancelService {
         maintenanceRepository.findById(maintenanceId).orElseThrow(()->
             new MaintenanceException(ErrorCode.MAINTENANCE_NOT_FOUND));
 
-    checkStatus(maintenance);
+    cancelIfReceived(maintenance);
 
     Authentication authentication =
-        AuthenticationUtil.getAuthentication();
+        AuthenticationContext.getAuthentication();
 
     if (!authentication.getName().equals(maintenance.getAccount().getUsername())) {
       throw new MaintenanceException(ErrorCode.REQUEST_NOT_ALLOWED);
@@ -42,7 +42,7 @@ public class CancelService {
         .build());
   }
 
-  private void checkStatus(Maintenance maintenance) {
+  private void cancelIfReceived(Maintenance maintenance) {
     if (maintenance.getRequestStatus() != Status.RECEIVED) {
       throw new MaintenanceException(ErrorCode.STATUS_ERROR);
     } else {
