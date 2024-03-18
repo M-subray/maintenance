@@ -9,6 +9,8 @@
 - 인텔리제이
 - Java 11
 - MySql
+- Redis
+- Embedded Redis
 
 ## 프로젝트 기능
 - [x] 회원가입
