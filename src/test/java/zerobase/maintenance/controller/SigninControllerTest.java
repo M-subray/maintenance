@@ -1,7 +1,5 @@
 package zerobase.maintenance.controller;
 
-import static org.assertj.core.api.BDDAssumptions.given;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -36,7 +34,7 @@ class SigninControllerTest {
   @DisplayName("로그인 성공")
   void successSignin() throws Exception {
     // given
-    SigninDto.Request signinDto = SigninDto.Request.builder()
+    SigninDto signinDto = SigninDto.builder()
         .username("testUser")
         .password("testPassword")
         .build();
@@ -66,7 +64,7 @@ class SigninControllerTest {
   void failSigninForWrongUsername() throws Exception {
     // given
     String usernameNotFound = "usernameNotFound";
-    SigninDto.Request signinDto = SigninDto.Request.builder()
+    SigninDto signinDto = SigninDto.builder()
         .username("testUser")
         .password("testPassword")
         .build();
@@ -87,7 +85,7 @@ class SigninControllerTest {
   @DisplayName("로그인 실패 - username 이 null 인 경우")
   void failSigninForEmptyUsername() throws Exception {
     // given
-    SigninDto.Request signinDto = SigninDto.Request.builder()
+    SigninDto signinDto = SigninDto.builder()
         .username(null)
         .password("testPassword")
         .build();
@@ -105,7 +103,7 @@ class SigninControllerTest {
   void failSigninForWrongPassword() throws Exception {
     // given
     String wrongPassword = "wrongPassword";
-    SigninDto.Request signinDto = SigninDto.Request.builder()
+    SigninDto signinDto = SigninDto.builder()
         .username("testUser")
         .password("testPassword")
         .build();
@@ -126,7 +124,7 @@ class SigninControllerTest {
   @DisplayName("로그인 실패 - password 가 null 인 경우")
   void failSigninForEmptyPassword() throws Exception {
     // given
-    SigninDto.Request signinDto = SigninDto.Request.builder()
+    SigninDto signinDto = SigninDto.builder()
         .username("testUser")
         .password(null)
         .build();

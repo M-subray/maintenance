@@ -9,7 +9,6 @@ import zerobase.maintenance.repository.AccountRepository;
 @Component
 public class AccountCleanup {
   private final AccountRepository accountRepository;
-
   @PreDestroy
   public void deleteNonManagerAccounts() {
     accountRepository.deleteAllExceptManager("MANAGER");

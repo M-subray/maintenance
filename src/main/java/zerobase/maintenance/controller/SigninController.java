@@ -19,10 +19,11 @@ public class SigninController {
   private final TokenProvider tokenProvider;
 
   @PostMapping("/signin")
-  public ResponseEntity<?> signin(@RequestBody @Valid SigninDto.Request signinDto) {
+  public ResponseEntity<?> signin(@RequestBody @Valid SigninDto signinDto) {
     signinService.signin(signinDto.getUsername(), signinDto.getPassword());
     String token =
-        tokenProvider.generateToken(signinDto.getUsername(), signinDto.getRole());
+        tokenProvider.generateToken(signinDto.getUsername(), signinService.getRole(
+            signinDto.getUsername()));
     return ResponseEntity.ok().body("로그인 성공\n" + token);
   }
 }

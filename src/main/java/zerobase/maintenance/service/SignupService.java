@@ -19,16 +19,16 @@ public class SignupService {
   private final PasswordEncoder passwordEncoder;
 
   @Transactional
-  public void signup(SignupDto.Request request) {
-    checkUsername(request.getUsername());
+  public void signup(SignupDto signupDto) {
+    checkUsername(signupDto.getUsername());
     accountRepository.save(Account.builder()
-        .username(request.getUsername())
-        .password(passwordEncoder.encode(request.getPassword()))
-        .name(request.getName())
-        .address(request.getAddress())
-        .mobile(request.getMobile())
-        .mail(request.getMail())
-        .role(Roles.valueOf(request.getRole()))
+        .username(signupDto.getUsername())
+        .password(passwordEncoder.encode(signupDto.getPassword()))
+        .name(signupDto.getName())
+        .address(signupDto.getAddress())
+        .mobile(signupDto.getMobile())
+        .mail(signupDto.getMail())
+        .role(Roles.valueOf(signupDto.getRole()))
         .build());
   }
 

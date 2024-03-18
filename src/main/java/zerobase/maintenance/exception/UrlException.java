@@ -13,11 +13,11 @@ import zerobase.maintenance.type.ErrorCode;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AccountException extends RuntimeException{
+public class UrlException extends RuntimeException{
   private ErrorCode errorCode;
   private String errorMessage;
 
-  public AccountException(ErrorCode errorCode) {
+  public UrlException(ErrorCode errorCode) {
     this.errorCode = errorCode;
     this.errorMessage = errorCode.getDescription();
   }
