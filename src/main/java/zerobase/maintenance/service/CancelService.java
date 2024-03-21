@@ -4,12 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import zerobase.maintenance.context.MaintenanceContext;
 import zerobase.maintenance.domain.Maintenance;
 import zerobase.maintenance.domain.CancelledMaintenance;
 import zerobase.maintenance.dto.CancelDto;
 import zerobase.maintenance.exception.MaintenanceException;
 import zerobase.maintenance.repository.MaintenanceCancelRepository;
-import zerobase.maintenance.repository.MaintenanceRepository;
 import zerobase.maintenance.type.ErrorCode;
 import zerobase.maintenance.type.Status;
 import zerobase.maintenance.context.AuthenticationContext;
@@ -18,19 +18,18 @@ import zerobase.maintenance.context.AuthenticationContext;
 @RequiredArgsConstructor
 public class CancelService {
 
-  private final MaintenanceRepository maintenanceRepository;
   private final MaintenanceCancelRepository maintenanceCancelRepository;
+  private final MaintenanceContext maintenanceContext;
 
   @Transactional
   public void maintenanceCancel(Long maintenanceId, CancelDto cancelDto) {
     Authentication authentication =
         AuthenticationContext.getAuthentication();
 
-    Maintenance getById =
-        maintenanceRepository.findById(maintenanceId).orElseThrow(()->
-            new MaintenanceException(ErrorCode.MAINTENANCE_NOT_FOUND));
+    Maintenance maintenance =
+        maintenanceContext.getMaintenance(maintenanceId);
 
-    if (!authentication.getName().equals(getById.getAccount().getUsername())) {
+    if (!authentication.getName().equals(maintenance.getAccount().getUsername())) {
       throw new MaintenanceException(ErrorCode.REQUEST_NOT_ALLOWED);
     }
 
@@ -39,7 +38,7 @@ public class CancelService {
         .cancelReason(cancelDto.getCancelReason())
         .build());
 
-    cancelIfReceived(getById);
+    cancelIfReceived(maintenance);
   }
 
   private void cancelIfReceived(Maintenance maintenance) {

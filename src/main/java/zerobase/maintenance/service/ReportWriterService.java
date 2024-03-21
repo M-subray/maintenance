@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import zerobase.maintenance.context.MaintenanceContext;
 import zerobase.maintenance.domain.Maintenance;
 import zerobase.maintenance.domain.Report;
 import zerobase.maintenance.dto.ReportWriterDto;
@@ -21,15 +22,15 @@ public class ReportWriterService {
   private final MaintenanceRepository maintenanceRepository;
   private final ReportRepository reportRepository;
   private final StorageService storageService;
+  private final MaintenanceContext maintenanceContext;
 
   public void write(Long maintenanceId, ReportWriterDto reportWriterDto) {
     Authentication authentication = AuthenticationContext.getAuthentication();
 
-    Maintenance getById =
-        maintenanceRepository.findById(maintenanceId).orElseThrow(()->
-            new MaintenanceException(ErrorCode.MAINTENANCE_NOT_FOUND));
+    Maintenance maintenance =
+        maintenanceContext.getMaintenance(maintenanceId);
 
-    if (!authentication.getName().equals(getById.getHandlerPartnerOnField())) {
+    if (!authentication.getName().equals(maintenance.getHandlerPartnerOnField())) {
       throw new AccountException(ErrorCode.REQUEST_NOT_ALLOWED);
     }
 
@@ -41,13 +42,13 @@ public class ReportWriterService {
     }
 
     reportRepository.save(Report.builder()
-        .maintenance(getById)
+        .maintenance(maintenance)
         .title(reportWriterDto.getTitle())
         .reportDetail(reportWriterDto.getReportDetail())
         .imagePath(imagePath)
         .build());
 
-    completeIfConfirm(getById);
+    completeIfConfirm(maintenance);
   }
 
   private void completeIfConfirm(Maintenance maintenance) {
