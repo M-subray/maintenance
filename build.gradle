@@ -27,6 +27,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-security:2.6.4'
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	implementation 'net.nurigo:sdk:4.3.0'
+	// redis client
+	implementation 'org.redisson:redisson:3.17.1'
+	// embedded redis
+	implementation('it.ozimov:embedded-redis:0.7.3') {
+		exclude group: "org.slf4j", module: "slf4j-simple"
+	}
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
 	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
 	compileOnly 'org.projectlombok:lombok'

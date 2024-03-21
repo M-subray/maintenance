@@ -1,6 +1,18 @@
+# 데이터베이스 설정
 spring:
+  redis:
+    host: 127.0.0.1
+    port: 6379
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/maintenance?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
     password: zerobase
+  coolsms:
+    api:
+      key: NCSFURTSNXAQAV3O
+      secretKey: BYMH6DNNUZY2ZJ4ZDRJ59JCPGWLXMVNV
+      senderNumber: 01044993345
+      ip: 59.6.6.132
+
+

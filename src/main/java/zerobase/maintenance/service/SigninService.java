@@ -8,6 +8,7 @@ import zerobase.maintenance.domain.Account;
 import zerobase.maintenance.exception.AccountException;
 import zerobase.maintenance.repository.AccountRepository;
 import zerobase.maintenance.type.ErrorCode;
+import zerobase.maintenance.type.Roles;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +31,12 @@ public class SigninService {
 
   private boolean isPasswordMatch(String rawPassword, String encodedPassword) {
     return passwordEncoder.matches(rawPassword, encodedPassword);
+  }
+
+  public Roles getRole(String username) {
+    Account account = accountRepository.findByUsername(username).orElseThrow(() ->
+        new AccountException(ErrorCode.USERNAME_NOT_FOUND));
+
+    return account.getRole();
   }
 }
