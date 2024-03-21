@@ -7,30 +7,30 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import zerobase.maintenance.dto.RequestCheckForPartnerDto;
-import zerobase.maintenance.dto.RequestCheckForUserDto;
-import zerobase.maintenance.service.RequestCheckService;
+import zerobase.maintenance.dto.MaintenanceCheckForPartnerDto;
+import zerobase.maintenance.dto.MaintenanceCheckForUserDto;
+import zerobase.maintenance.service.MaintenanceCheckService;
 
 @RequiredArgsConstructor
 @RestController
-public class RequestCheckController {
-  private final RequestCheckService requestCheckService;
+public class MaintenanceCheckController {
+  private final MaintenanceCheckService maintenanceCheckService;
 
   @GetMapping("/maintenance/check/user")
   @PreAuthorize("hasRole('USER')")
-  public ResponseEntity<Page<RequestCheckForUserDto>> checkForUser(
+  public ResponseEntity<Page<MaintenanceCheckForUserDto>> checkForUser(
       Pageable pageable) {
-    Page<RequestCheckForUserDto> maintenancePage =
-        requestCheckService.getAllMyMaintenanceRequest(pageable);
+    Page<MaintenanceCheckForUserDto> maintenancePage =
+        maintenanceCheckService.getAllMyMaintenanceRequest(pageable);
     return ResponseEntity.ok().body(maintenancePage);
   }
 
   @GetMapping("/maintenance/check/partner")
   @PreAuthorize("hasRole('PARTNER_IN_OFFICE') or hasRole('PARTNER_ON_FIELD')")
-  public ResponseEntity<Page<RequestCheckForPartnerDto>> maintenanceCheckForPartner (
+  public ResponseEntity<Page<MaintenanceCheckForPartnerDto>> maintenanceCheckForPartner (
       Pageable pageable) {
-    Page<RequestCheckForPartnerDto> maintenancePage =
-        requestCheckService.getAllMaintenanceRequest(pageable);
+    Page<MaintenanceCheckForPartnerDto> maintenancePage =
+        maintenanceCheckService.getAllMaintenanceRequest(pageable);
 
     return ResponseEntity.ok().body(maintenancePage);
   }

@@ -12,7 +12,7 @@ import zerobase.maintenance.repository.MaintenanceCancelRepository;
 import zerobase.maintenance.repository.MaintenanceRepository;
 import zerobase.maintenance.type.ErrorCode;
 import zerobase.maintenance.type.Status;
-import zerobase.maintenance.utils.AuthenticationContext;
+import zerobase.maintenance.context.AuthenticationContext;
 
 @Service
 @RequiredArgsConstructor
@@ -23,16 +23,14 @@ public class CancelService {
 
   @Transactional
   public void maintenanceCancel(Long maintenanceId, CancelDto cancelDto) {
-    Maintenance maintenance =
-        maintenanceRepository.findById(maintenanceId).orElseThrow(()->
-            new MaintenanceException(ErrorCode.MAINTENANCE_NOT_FOUND));
-
-    cancelIfReceived(maintenance);
-
     Authentication authentication =
         AuthenticationContext.getAuthentication();
 
-    if (!authentication.getName().equals(maintenance.getAccount().getUsername())) {
+    Maintenance getById =
+        maintenanceRepository.findById(maintenanceId).orElseThrow(()->
+            new MaintenanceException(ErrorCode.MAINTENANCE_NOT_FOUND));
+
+    if (!authentication.getName().equals(getById.getAccount().getUsername())) {
       throw new MaintenanceException(ErrorCode.REQUEST_NOT_ALLOWED);
     }
 
@@ -40,11 +38,13 @@ public class CancelService {
         .maintenanceId(maintenanceId)
         .cancelReason(cancelDto.getCancelReason())
         .build());
+
+    cancelIfReceived(getById);
   }
 
   private void cancelIfReceived(Maintenance maintenance) {
     if (maintenance.getRequestStatus() != Status.RECEIVED) {
-      throw new MaintenanceException(ErrorCode.STATUS_ERROR);
+      throw new MaintenanceException(ErrorCode.CAN_NOT_CANCEL);
     } else {
       setStatusToCanceled(maintenance);
     }

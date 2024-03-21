@@ -16,7 +16,7 @@ import zerobase.maintenance.exception.MaintenanceException;
 import zerobase.maintenance.repository.AccountRepository;
 import zerobase.maintenance.repository.MaintenanceRepository;
 import zerobase.maintenance.type.ErrorCode;
-import zerobase.maintenance.utils.AuthenticationContext;
+import zerobase.maintenance.context.AuthenticationContext;
 import zerobase.maintenance.utils.SmsUtil;
 
 @Service
@@ -113,6 +113,7 @@ public class ConfirmService {
         DateTimeFormatter.ofPattern("MM월dd일 HH시mm분");
     String formattedDateTime =
         smsForUserDto.getVisitScheduleDateTIme().format(formatter);
+
     String userMobile =
         smsForUserDto.getUserMobile().replaceAll("-", "");
 

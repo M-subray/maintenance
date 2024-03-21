@@ -13,7 +13,7 @@ import zerobase.maintenance.type.Status;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class RequestCheckForPartnerDto {
+public class MaintenanceCheckForPartnerDto {
     private String title;
     private LocalDateTime requestDateTime;
     private Status requestStatus;

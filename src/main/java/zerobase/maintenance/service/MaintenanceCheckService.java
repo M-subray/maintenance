@@ -6,18 +6,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import zerobase.maintenance.domain.Maintenance;
-import zerobase.maintenance.dto.RequestCheckForPartnerDto;
-import zerobase.maintenance.dto.RequestCheckForUserDto;
+import zerobase.maintenance.dto.MaintenanceCheckForPartnerDto;
+import zerobase.maintenance.dto.MaintenanceCheckForUserDto;
 import zerobase.maintenance.repository.MaintenanceRepository;
-import zerobase.maintenance.utils.AuthenticationContext;
+import zerobase.maintenance.context.AuthenticationContext;
 
 @Service
 @RequiredArgsConstructor
-public class RequestCheckService {
+public class MaintenanceCheckService {
   private final MaintenanceRepository maintenanceRepository;
 
   @Transactional(readOnly = true)
-  public Page<RequestCheckForUserDto> getAllMyMaintenanceRequest(Pageable pageable) {
+  public Page<MaintenanceCheckForUserDto> getAllMyMaintenanceRequest(Pageable pageable) {
     String username =
         AuthenticationContext.getAuthentication().getName();
 
@@ -27,8 +27,8 @@ public class RequestCheckService {
     return maintenancePage.map(this::mapToResponseForUserDto);
   }
 
-  private RequestCheckForUserDto mapToResponseForUserDto(Maintenance maintenance) {
-    return RequestCheckForUserDto.builder()
+  private MaintenanceCheckForUserDto mapToResponseForUserDto(Maintenance maintenance) {
+    return MaintenanceCheckForUserDto.builder()
         .title(maintenance.getTitle())
         .requestDateTime(maintenance.getRequestDateTime())
         .requestStatus(maintenance.getRequestStatus())
@@ -36,13 +36,13 @@ public class RequestCheckService {
   }
 
   @Transactional(readOnly = true)
-  public Page<RequestCheckForPartnerDto> getAllMaintenanceRequest(Pageable pageable) {
+  public Page<MaintenanceCheckForPartnerDto> getAllMaintenanceRequest(Pageable pageable) {
     Page<Maintenance> maintenancePage = maintenanceRepository.findAll(pageable);
     return maintenancePage.map(this::mapToResponseForPartnerDto);
   }
 
-  private RequestCheckForPartnerDto mapToResponseForPartnerDto(Maintenance maintenance) {
-    return RequestCheckForPartnerDto.builder()
+  private MaintenanceCheckForPartnerDto mapToResponseForPartnerDto(Maintenance maintenance) {
+    return MaintenanceCheckForPartnerDto.builder()
         .title(maintenance.getTitle())
         .requestDateTime(maintenance.getRequestDateTime())
         .requestStatus(maintenance.getRequestStatus())

@@ -14,5 +14,13 @@ spring:
       secretKey: BYMH6DNNUZY2ZJ4ZDRJ59JCPGWLXMVNV
       senderNumber: 01044993345
       ip: 59.6.6.132
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 10MB
+  file:
+    upload-dir: imageDirectory
+
 
 
