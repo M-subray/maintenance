@@ -19,7 +19,7 @@ public class CompletionTimeSaveController {
   @PreAuthorize("hasRole('USER')")
   public ResponseEntity<String> generateVisitURL(@PathVariable Long maintenanceId) {
     completionTimeSaveService.maintenanceComplete(maintenanceId);
-    log.info("유지보수 id: " + maintenanceId + " 방문 시간 확정 완료");
+    log.info("유지보수 Id: {} 방문 시간 확정완료", maintenanceId);
     return ResponseEntity.ok().body("실제 방문 시간이 확정 되었습니다.");
   }
 }

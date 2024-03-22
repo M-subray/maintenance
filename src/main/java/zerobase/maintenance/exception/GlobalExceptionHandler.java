@@ -30,13 +30,13 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getErrorMessage());
   }
 
-  @ExceptionHandler(UrlException.class)
+  @ExceptionHandler(ReportException.class)
   public ResponseEntity<String> handleReportException(ReportException e) {
     log.error("에러 메시지: {}, 에러 메시지: {}", e.getMessage(), e.getErrorMessage());
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getErrorMessage());
   }
 
-  @ExceptionHandler(UrlException.class)
+  @ExceptionHandler(FileCopyException.class)
   public ResponseEntity<String> handleFileCopyException(FileCopyException e) {
     log.error("에러 메시지: {}, 에러 메시지: {}", e.getMessage(), e.getErrorMessage());
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getErrorMessage());

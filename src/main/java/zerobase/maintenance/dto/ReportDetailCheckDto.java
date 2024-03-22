@@ -17,7 +17,7 @@ public class ReportDetailCheckDto {
   private String item;
   private String handlerPartnerInOffice;
   private String handlerPartnerOnField;
-  private String visitCompletionDateTIme;
+  private LocalDateTime visitCompletionDateTIme;
   private String imagePath;
   private String reportDetail;
 }

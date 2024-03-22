@@ -18,8 +18,10 @@ public class StorageService {
   @Value("${spring.file.upload-dir}")
   private String uploadDir;
 
+  private static final long MAX_FILE_SIZE = 10 * 1024 * 1024;
+
   public String store(MultipartFile file) {
-    if (file.getSize() > 10 * 1024 * 1024) {
+    if (file.getSize() > MAX_FILE_SIZE) {
       throw new FileCopyException(ErrorCode.FILE_MAX_SIZE_EXCEED);
     }
 

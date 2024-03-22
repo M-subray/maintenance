@@ -3,6 +3,7 @@ package zerobase.maintenance.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import zerobase.maintenance.context.MaintenanceContext;
 import zerobase.maintenance.domain.Maintenance;
@@ -24,11 +25,14 @@ public class ReportWriterService {
   private final StorageService storageService;
   private final MaintenanceContext maintenanceContext;
 
+  @Transactional
   public void write(Long maintenanceId, ReportWriterDto reportWriterDto) {
     Authentication authentication = AuthenticationContext.getAuthentication();
 
     Maintenance maintenance =
         maintenanceContext.getMaintenance(maintenanceId);
+
+    completeIfConfirm(maintenance);
 
     if (!authentication.getName().equals(maintenance.getHandlerPartnerOnField())) {
       throw new AccountException(ErrorCode.REQUEST_NOT_ALLOWED);
@@ -47,8 +51,6 @@ public class ReportWriterService {
         .reportDetail(reportWriterDto.getReportDetail())
         .imagePath(imagePath)
         .build());
-
-    completeIfConfirm(maintenance);
   }
 
   private void completeIfConfirm(Maintenance maintenance) {
@@ -61,6 +63,6 @@ public class ReportWriterService {
 
   private void setStatusToComplete(Maintenance maintenance) {
     maintenance.setRequestStatus(Status.COMPLETED);
-    maintenanceRepository.save(maintenance);
+//    maintenanceRepository.save(maintenance);
   }
 }

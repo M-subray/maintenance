@@ -17,8 +17,8 @@ public class VisitCompleteUrlGenerateService {
 
   private long visitUrlTtl = 24 * 60 * 60 * 1000;
 
-  @Value("${spring.coolsms.api.ip}")
-  private String ip;
+  @Value("${spring.coolsms.api.url}")
+  private String url;
 
   @Transactional(readOnly = true)
   public String generateVisitURL(Long maintenanceId) {
@@ -27,8 +27,11 @@ public class VisitCompleteUrlGenerateService {
         maintenanceContext.getMaintenance(maintenanceId);
 
     String Url =
-        String.format("http://%s:8080/maintenance/visit-url/%s",
-        ip, String.valueOf(maintenance.getId()));
+        url + String.valueOf(maintenance.getId());
+
+//    String Url =
+//        String.format("http://%s:8080/maintenance/visit-url/%s",
+//        ip, String.valueOf(maintenance.getId()));
 
     redissonClient.getBucket("visit-url" + maintenanceId)
         .set(Url, visitUrlTtl, TimeUnit.HOURS);

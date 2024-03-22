@@ -12,8 +12,8 @@ spring:
     api:
       key: NCSFURTSNXAQAV3O
       secretKey: BYMH6DNNUZY2ZJ4ZDRJ59JCPGWLXMVNV
-      senderNumber: 01044993345
-      ip: 59.6.6.132
+      senderNumber: "01044993345"
+      url: http://59.6.6.132:8080/maintenance/visit-url/
   servlet:
     multipart:
       enabled: true
