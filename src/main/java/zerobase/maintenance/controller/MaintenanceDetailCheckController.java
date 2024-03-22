@@ -6,29 +6,31 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-import zerobase.maintenance.dto.DetailCheckDto;
-import zerobase.maintenance.service.DetailCheckService;
+import zerobase.maintenance.dto.MaintenanceDetailCheckDto;
+import zerobase.maintenance.service.MaintenanceDetailCheckService;
 
 @RequiredArgsConstructor
 @RestController
-public class DetailCheckController {
-  private final DetailCheckService detailCheckService;
+public class MaintenanceDetailCheckController {
+  private final MaintenanceDetailCheckService maintenanceDetailCheckService;
 
   @GetMapping("/maintenance/check/user/{maintenanceId}")
   @PreAuthorize("hasRole('USER')")
-  public ResponseEntity<DetailCheckDto> getMaintenanceDetailForUser(
+  public ResponseEntity<MaintenanceDetailCheckDto> getMaintenanceDetailForUser(
       @PathVariable Long maintenanceId) {
+
     return ResponseEntity.ok().body(
-        detailCheckService.getMaintenanceDetailForUser(maintenanceId)
+        maintenanceDetailCheckService.getMaintenanceDetailForUser(maintenanceId)
     );
   }
 
   @GetMapping("/maintenance/check/partner/{maintenanceId}")
   @PreAuthorize("hasRole('PARTNER_IN_OFFICE') or hasRole('PARTNER_ON_FIELD')")
-  public ResponseEntity<DetailCheckDto> getMaintenanceDetailForPartner(
+  public ResponseEntity<MaintenanceDetailCheckDto> getMaintenanceDetailForPartner(
       @PathVariable Long maintenanceId) {
+
     return ResponseEntity.ok().body(
-        detailCheckService.getMaintenanceDetailForPartner(maintenanceId)
+        maintenanceDetailCheckService.getMaintenanceDetailForPartner(maintenanceId)
     );
   }
 }

@@ -14,7 +14,7 @@ import zerobase.maintenance.type.Status;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DetailCheckDto {
+public class MaintenanceDetailCheckDto {
   private String name;
   private String address;
   private String mobile;

@@ -1,6 +1,5 @@
 package zerobase.maintenance.service;
 
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,7 @@ import zerobase.maintenance.repository.AccountRepository;
 import zerobase.maintenance.repository.MaintenanceRepository;
 import zerobase.maintenance.type.ErrorCode;
 import zerobase.maintenance.type.Status;
-import zerobase.maintenance.utils.AuthenticationContext;
+import zerobase.maintenance.context.AuthenticationContext;
 
 @Service
 @RequiredArgsConstructor

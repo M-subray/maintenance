@@ -26,6 +26,7 @@ public class Report {
   @OneToOne
   @JoinColumn(name = "maintenance_id")
   private Maintenance maintenance;
+  private String title;
   private String imagePath;
   private String reportDetail;
 }

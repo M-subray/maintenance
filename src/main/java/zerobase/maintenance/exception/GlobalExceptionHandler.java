@@ -1,14 +1,11 @@
 package zerobase.maintenance.exception;
 
-import java.nio.file.AccessDeniedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.client.HttpClientErrorException;
-import zerobase.maintenance.domain.Maintenance;
 
 
 @Slf4j
@@ -32,6 +29,19 @@ public class GlobalExceptionHandler {
     log.error("에러 메시지: {}, 에러 메시지: {}", e.getMessage(), e.getErrorMessage());
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getErrorMessage());
   }
+
+  @ExceptionHandler(ReportException.class)
+  public ResponseEntity<String> handleReportException(ReportException e) {
+    log.error("에러 메시지: {}, 에러 메시지: {}", e.getMessage(), e.getErrorMessage());
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getErrorMessage());
+  }
+
+  @ExceptionHandler(FileCopyException.class)
+  public ResponseEntity<String> handleFileCopyException(FileCopyException e) {
+    log.error("에러 메시지: {}, 에러 메시지: {}", e.getMessage(), e.getErrorMessage());
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getErrorMessage());
+  }
+
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ResponseEntity<String> handleValidationException(MethodArgumentNotValidException e) {
