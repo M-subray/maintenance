@@ -11,7 +11,6 @@ import zerobase.maintenance.domain.Report;
 import zerobase.maintenance.dto.ReportWriterDto;
 import zerobase.maintenance.exception.AccountException;
 import zerobase.maintenance.exception.MaintenanceException;
-import zerobase.maintenance.repository.MaintenanceRepository;
 import zerobase.maintenance.repository.ReportRepository;
 import zerobase.maintenance.type.ErrorCode;
 import zerobase.maintenance.type.Status;
@@ -20,7 +19,6 @@ import zerobase.maintenance.context.AuthenticationContext;
 @Service
 @RequiredArgsConstructor
 public class ReportWriterService {
-  private final MaintenanceRepository maintenanceRepository;
   private final ReportRepository reportRepository;
   private final StorageService storageService;
   private final MaintenanceContext maintenanceContext;
@@ -63,6 +61,5 @@ public class ReportWriterService {
 
   private void setStatusToComplete(Maintenance maintenance) {
     maintenance.setRequestStatus(Status.COMPLETED);
-//    maintenanceRepository.save(maintenance);
   }
 }
