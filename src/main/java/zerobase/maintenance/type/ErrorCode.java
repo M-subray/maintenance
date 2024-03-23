@@ -27,6 +27,7 @@ public enum ErrorCode {
    */
   CAN_NOT_CANCEL("취소가 불가하거나 이미 취소된 상태입니다. (유선 문의 부탁드립니다.)"),
   CAN_NOT_COMPLETE("완료가 불가하거나 이미 완료된 상태입니다. (컨펌 우선 진행 필요)"),
+  CAN_NOT_LEAVE_REVIEW("리뷰는 유지보수 완료 상태일 때 남길 수 있습니다."),
   REQUEST_NOT_ALLOWED("요청 권한이 없습니다."),
   MAINTENANCE_NOT_FOUND("해당 접수건이 존재하지 않습니다."),
 

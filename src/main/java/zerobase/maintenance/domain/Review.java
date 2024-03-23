@@ -12,7 +12,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import zerobase.maintenance.type.Star;
 
 @Getter
 @Setter
@@ -28,6 +27,7 @@ public class Review {
   @OneToOne
   @JoinColumn(name = "maintenance_id")
   private Maintenance maintenance;
-  private Star star;
+  private Long targetPartnerId;
+  private Integer star;
   private String review;
 }
