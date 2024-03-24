@@ -13,7 +13,7 @@ import zerobase.maintenance.service.ReviewWriteService;
 
 @RestController
 @RequiredArgsConstructor
-public class reviewWriteController {
+public class ReviewWriteController {
   private final ReviewWriteService reviewWriteService;
 
   @PostMapping("/maintenance/review/{maintenanceId}")
