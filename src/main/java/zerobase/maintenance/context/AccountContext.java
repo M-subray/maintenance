@@ -18,4 +18,11 @@ public class AccountContext {
 
     return account;
   }
+
+  public Account getAccount(long userId) {
+    Account account = accountRepository.findById(userId).orElseThrow(()->
+        new AccountException(ErrorCode.USERID_NOT_FOUND));
+
+    return account;
+  }
 }

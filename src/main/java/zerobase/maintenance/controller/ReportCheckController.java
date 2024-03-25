@@ -20,7 +20,8 @@ public class ReportCheckController {
   @GetMapping("/report/check")
   @PreAuthorize("hasRole('PARTNER_IN_OFFICE') or hasRole('PARTNER_ON_FIELD')")
   public ResponseEntity<Page<ReportCheckDto>> checkReport(Pageable pageable) {
-    Page<ReportCheckDto> reportPage = reportCheckService.getAllReport(pageable);
+    Page<ReportCheckDto> reportPage =
+        reportCheckService.getAllReport(pageable);
 
     return ResponseEntity.ok().body(reportPage);
   }

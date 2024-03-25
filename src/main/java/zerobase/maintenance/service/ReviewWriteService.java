@@ -15,6 +15,7 @@ import zerobase.maintenance.exception.AccountException;
 import zerobase.maintenance.exception.MaintenanceException;
 import zerobase.maintenance.repository.ReviewRepository;
 import zerobase.maintenance.type.ErrorCode;
+import zerobase.maintenance.type.ReviewType;
 import zerobase.maintenance.type.Status;
 
 @Service
@@ -64,6 +65,7 @@ public class ReviewWriteService {
         .targetPartnerId(accountId)
         .star(reviewWriteDto.getStarForPartnerInOffice().getValue())
         .review(reviewWriteDto.getReviewForPartnerInOffice())
+        .type(ReviewType.OFFICE)
         .build());
   }
 
@@ -77,6 +79,7 @@ public class ReviewWriteService {
         .targetPartnerId(accountId)
         .star(reviewWriteDto.getStarForPartnerOnField().getValue())
         .review(reviewWriteDto.getReviewForPartnerOnField())
+        .type(ReviewType.FIELD)
         .build());
   }
 
