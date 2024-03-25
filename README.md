@@ -60,10 +60,12 @@
 - [x] 리포트 등록 (파트너(외근직) 권한)
   - 처리 사진
   - 처리 내역(Report Detail)
-- [ ] 리뷰 등록 (유저 권한)
+- [X] 리뷰 등록 (유저 권한)
   - 별점 리뷰
   - 텍스트 리뷰
-- [ ] 리뷰 조회 (관리자 권한(MANAGER))
-  - 구현 할 기능 추가 예정
+- [X] 리뷰 조회 (관리자 권한(MANAGER))
+  - 전체 리뷰 조회
+  - 개별 리뷰 상세 조회
+  - 직회
 ## ERD
 ![maintenance ERD 수정본_최종](https://github.com/M-subray/maintenance/assets/144686741/6f41ea34-249e-412c-8ed9-d7f4130e6b00)
