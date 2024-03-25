@@ -66,6 +66,6 @@
 - [X] 리뷰 조회 (관리자 권한(MANAGER))
   - 전체 리뷰 조회
   - 개별 리뷰 상세 조회
-  - 직회
+  - 직원별 별점 리뷰 평점 조회
 ## ERD
 ![maintenance ERD 수정본_최종](https://github.com/M-subray/maintenance/assets/144686741/6f41ea34-249e-412c-8ed9-d7f4130e6b00)
