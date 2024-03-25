@@ -10,6 +10,7 @@ public enum ErrorCode {
   Account Exception
    */
   USERNAME_NOT_FOUND("해당 username 은 존재하지 않습니다."),
+  USERID_NOT_FOUND("해당 Id 는 존재하지 않습니다."),
   ALREADY_USERNAME("해당 username 은 이미 존재 합니다."),
   WRONG_PASSWORD("비밀번호가 다릅니다."),
   SIGNIN_TIME_OUT("재로그인이 필요합니다."),
@@ -43,7 +44,7 @@ public enum ErrorCode {
   NOT_FOUND_REPORT("해당 리포트는 존재하지 않습니다."),
 
 
-  /*
+  /*s
   FileCopy Exception
    */
   FILE_COPY_FAILED("파일 저장을 실패했습니다."),
